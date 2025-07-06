@@ -18,8 +18,4 @@
     <ProjectReference Include="..\ApiProject.BusinessLayer\ApiProject.BusinessLayer.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dtos\" />
-  </ItemGroup>
-
 </Project>
