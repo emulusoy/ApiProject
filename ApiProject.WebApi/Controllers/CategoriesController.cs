@@ -1,5 +1,6 @@
 ﻿using ApiProject.BusinessLayer.Abstract;
 using ApiProject.EntityLayer.Entities;
+using ApiProject.WebApi.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,14 +23,23 @@ namespace ApiProject.WebApi.Controllers
             return Ok(values);
         }
         [HttpPost]
-        public IActionResult CreateCategory(Category category)
+        public IActionResult CreateCategory(CreateCategoryDto createCategoryDto)
         {
+            Category category = new Category
+            {
+                CategoryName =  createCategoryDto.CategoryName
+            };
             _categoryService.TAdd(category);
             return Created("Ekleme Basarili", category);
         }
         [HttpPut]
-        public IActionResult UpdateCategory(Category category)
+        public IActionResult UpdateCategory(UpdateCategoryDto updateCategoryDto)
         {
+            Category category = new Category
+            {
+                CategoryId = updateCategoryDto.CategoryId,
+                CategoryName = updateCategoryDto.CategoryName
+            };
             _categoryService.TUpdate(category);
             return Ok("Update Basarili"); // 204 No Content
         }
