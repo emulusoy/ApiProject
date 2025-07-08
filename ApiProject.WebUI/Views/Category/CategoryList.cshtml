@@ -1,0 +1,94 @@
+﻿@model List<ResultCategoryDto>
+@{
+    Layout = null;
+    var isSuccess = TempData["CategoryUpdated"] as bool?;
+}
+
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Category Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+          padding: 40px;
+          background-color: dimgray;
+        }
+        .table-wrapper {
+          background: #fff;
+          padding: 20px;
+          border-radius: 12px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .btn {
+          margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container mt-5">
+        <div class="card shadow-lg rounded-4">
+            <div class="card-header bg-dark text-white py-3 rounded-top-4">
+                <h4 class="mb-0">Category List</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover align-middle table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col" style="width:10%">#</th>
+                            <th scope="col">Kategori Adı</th>
+                            <th scope="col" style="width:15%">EDIT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="fw-bold text-secondary">@item.CategoryId</td>
+                                <td>@item.CategoryName</td>
+                                <td>
+                                    <a href="/Category/DeleteCategory/@item.CategoryId" class="btn btn-outline-danger btn-sm">
+                                        <i class="bi bi-trash3"></i> Delete
+                                    </a>
+                                    <a href="/Category/UpdateCategory/@item.CategoryId" class="btn btn-outline-success btn-sm">
+                                        <i class="bi bi-pencil-square"></i> Update
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer bg-white text-end rounded-bottom-4">
+                <a href="/Category/CreateCategory/" class="btn btn-info text-white">
+                    <i class="bi bi-plus-circle"></i> Create New
+                </a>
+            </div>
+        </div>
+    </div>
+
+</body>
+@if (isSuccess == true)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="successAlert">
+        <i class="bi bi-check-circle-fill"></i> Kategori başarıyla güncellendi!
+    </div>
+
+    <script>
+        setTimeout(function () {
+            var alert = document.getElementById("successAlert");
+            if (alert) {
+                var bsAlert = bootstrap.Alert.getOrCreateInstance(alert);
+                bsAlert.close();
+            }
+        }, 3000);
+    </script>
+}
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
